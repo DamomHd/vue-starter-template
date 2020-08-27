@@ -1,0 +1,88 @@
+.row {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
+.col {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+}
+.row-item {
+	flex: 1 1;
+}
+.row-start, .col-start {
+    justify-content: flex-start;
+}
+.row-center, .col-center {
+	justify-content: center;
+}
+.col-end, .row-end {
+    justify-content: flex-end;
+}
+.row-between, .col-between {
+    justify-content: space-between;
+}
+.row-around, .col-around {
+    justify-content: space-around;
+}
+.row-mul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+.start-item {
+    align-self: flex-start;
+}
+
+.text-p-lowest, .text-p-low, .text-p, .text-p-cap {
+    color: #000000;
+}
+.text-p-lowest {
+    font-size: 10px;
+}
+.text-p-low {
+    font-size: 12px;
+}
+.text-p {
+    font-size: 14px;
+}
+.text-p-cap {
+    font-size: 16px;
+}
+
+.text-subo-lowest, .text-subo-low, .text-subo, .text-subo-cap {
+    color: #888888;
+}
+.text-subo-lowest {
+    font-size: 10px;
+}
+.text-subo-low {
+    font-size: 12px;
+}
+.text-subo {
+    font-size: 14px;
+}
+.text-subo-cap {
+    font-size: 16px;
+}
+
+.text-warn-lowest, .text-warn-low, .text-warn, .text-warn-cap, .text-warn-capest {
+    color: #FF5350;
+}
+.text-warn-lowest {
+    font-size: 10px;
+}
+.text-warn-low {
+    font-size: 12px;
+}
+.text-warn {
+    font-size: 14px;
+}
+.text-warn-cap {
+    font-size: 16px;
+}
+.text-warn-capest {
+    font-size: 18px;
+}

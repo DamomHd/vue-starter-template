@@ -1,0 +1,127 @@
+
+@import '~@/assets/style/theme/theme.less';
+
+
+// 选中激活效果
+.hover:active{
+    opacity: 0.6;
+}
+/* 全局主题颜色 */
+@themeColor:#BF272D;//主题红
+@second-theme-color:#ea4452; //
+@weixin:#30cb49;//微信绿
+@pengyouquan:#76f345;//朋友圈
+@shareColor:#40b0ff;//分享蓝
+@loadingColor:#ffc364;//下载黄
+@orderColor:#ff9639;//下单黄
+@pageBgColor:#ECEFF1;//页面底色
+@backgroundColor:#fff;
+
+/* 常规使用的颜色 */
+@color-text-base:#000; //默认色
+@color-text-title:#333; //标题色
+@color-text-secondary: #666;  
+@color-text-caption: #999;   //辅助说明
+@color-text-placeholder: #bbb;   //输入框提示
+
+/* 分割线 */
+@lineColor:#eceff1;
+
+
+/* 骨架屏相关公共变量 */
+@skeleton-theme-color-r: 255;
+@skeleton-theme-color-g: 255;
+@skeleton-theme-color-b: 255;
+@skeleton-theme-color: rgb(
+  @skeleton-theme-color-r,
+  @skeleton-theme-color-g,
+  @skeleton-theme-color-b
+);
+@skeleton-fill-color: #999;
+
+@lazyWidth:30px;
+@lazyHeight:30px;
+  /* 点击效果 */
+.hover:active{
+    opacity: 0.6;
+}
+
+.text-center{
+  text-align: center;
+}
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+
+/**
+* 溢出省略号
+* @param {rowCount} 行数
+*/
+.ellipsis(@rowCount:1) when (@rowCount=1){
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ellipsis(@rowCount:1) when (@rowCount>1){
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: @rowCount;
+  // /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+  // /* autoprefixer: on */
+  word-wrap:break-word;
+}
+.img{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+.row-img{
+  display: inline-block;
+  width: 100%;
+}
+.col-img{
+  display: inline-block;
+  height: 100%;
+}
+.img-contain{
+  object-fit: contain;
+}
+.img-cover{
+  object-fit: cover;
+}
+.vc-fl{
+  float: left;
+}
+.vc-fr{
+  float: right;
+}
+.vc-font-bold{
+  font-weight: bold;
+}
+.vc-text-hidden{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vc-block{
+  display: block;
+}
+.vc-line-block{
+  display: inline-block;
+}
+.text-line-through{
+  text-decoration: line-through;
+}
+
+.img[lazy=loading]{
+  width: 30px;
+}
+.img[lazy=loaded]{
+  zoom:0.5
+}
