@@ -4,7 +4,7 @@
  * @Author: hongda_huang
  * @Date: 2019-07-15 11:16:53
  * @LastEditors: Damom
- * @LastEditTime: 2020-08-27 23:49:50
+ * @LastEditTime: 2020-08-30 11:55:28
  * @description:
  */
 
@@ -58,7 +58,7 @@ export function test (data){
 export function mockTest (data){
   return request({
     url: "/api/getTestList",
-    method: "get",
+    method: "post",
     loading:true,
     data
   })

@@ -2,7 +2,7 @@
  * @Author: Damom
  * @Date: 2020-08-20 22:34:48
  * @LastEditors: Damom
- * @LastEditTime: 2020-08-27 23:26:40
+ * @LastEditTime: 2020-08-30 11:55:12
  * @Description: file content
  */
 const jsonServer = require('json-server')
@@ -17,7 +17,8 @@ const rewriter = jsonServer.rewriter(routes)
 
 server.use(middlewares)
 server.use((request,res,next)=>{
-    request.method = 'GET'
+    console.log(request.method)
+    // request.method = 'GET'
     next()
 })
 

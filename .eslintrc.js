@@ -4,7 +4,7 @@
  * @Author: hongda_huang
  * @Date: 2020-04-24 09:53:10
  * @LastEditors: Damom
- * @LastEditTime: 2020-08-19 22:02:59
+ * @LastEditTime: 2020-08-30 11:51:48
  * @description:
  */
 module.exports = {
@@ -67,7 +67,8 @@ module.exports = {
     },
 
     parserOptions: {
-        sourceType: "module"
+        sourceType: "module",
+        parser: "babel-eslint", //解决vue import异步导入报错问题
     },
     parser: "vue-eslint-parser"
 };
