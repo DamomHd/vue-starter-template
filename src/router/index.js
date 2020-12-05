@@ -5,7 +5,7 @@
  * @Date: 2019-07-03 15:26:18
  * @LastEditors: vincent_Huanghd@126.com
  * @LastEditTime: 2020-07-29 13:36:46
- * @description: 
+ * @description:
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -20,7 +20,6 @@ const router = new VueRouter({
     routes
 })
 
-
 /**
  * 路由拦截
  * 权限验证
@@ -31,13 +30,13 @@ const router = new VueRouter({
 //     next();
 // })
 
-router.afterEach((to) => {
+router.afterEach(to => {
     // 更改标题
     util.title(to.meta.title)
     //允许分享 设置分享信息
     //初始化设置一次分享信息
     if (!to.meta.allowShare) {
-        // wechatAuth()
+    // wechatAuth()
     }
 })
 export default router

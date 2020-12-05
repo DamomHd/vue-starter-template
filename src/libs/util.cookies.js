@@ -9,11 +9,15 @@ const cookies = {}
  * @param {Object} setting cookie setting
  */
 cookies.set = function (name = 'default', value = '', cookieSetting = {}) {
-  let currentCookieSetting = {
-    expires: 1 //设置默认存储时间为1天
-  }
-  Object.assign(currentCookieSetting, cookieSetting)
-  Cookies.set(`${process.env.VUE_APP_TITLE}-${process.env.VUE_APP_VERSION}-${name}`, value, currentCookieSetting)
+    let currentCookieSetting = {
+        expires: 1 //设置默认存储时间为1天
+    }
+    Object.assign(currentCookieSetting, cookieSetting)
+    Cookies.set(
+        `${process.env.VUE_APP_TITLE}-${process.env.VUE_APP_VERSION}-${name}`,
+        value,
+        currentCookieSetting
+    )
 }
 
 /**
@@ -21,14 +25,16 @@ cookies.set = function (name = 'default', value = '', cookieSetting = {}) {
  * @param {String} name cookie name
  */
 cookies.get = function (name = 'default') {
-  return Cookies.get(`${process.env.VUE_APP_TITLE}-${process.env.VUE_APP_VERSION}-${name}`)
+    return Cookies.get(
+        `${process.env.VUE_APP_TITLE}-${process.env.VUE_APP_VERSION}-${name}`
+    )
 }
 
 /**
  * @description 拿到 cookie 全部的值
  */
 cookies.getAll = function () {
-  return Cookies.get()
+    return Cookies.get()
 }
 
 /**
@@ -36,7 +42,9 @@ cookies.getAll = function () {
  * @param {String} name cookie name
  */
 cookies.remove = function (name = 'default') {
-  return Cookies.remove(`${process.env.VUE_APP_TITLE}-${process.env.VUE_APP_VERSION}-${name}`)
+    return Cookies.remove(
+        `${process.env.VUE_APP_TITLE}-${process.env.VUE_APP_VERSION}-${name}`
+    )
 }
 
 export default cookies

@@ -3,8 +3,8 @@
  * @version: v1.0
  * @Author: hongda_huang
  * @Date: 2019-07-03 16:35:48
- * @LastEditors: vincent_Huanghd@126.com
- * @LastEditTime: 2019-11-05 17:43:08
+ * @LastEditors: Damom
+ * @LastEditTime: 2020-12-05 11:14:51
  * @description: 全局过滤器
  */
 
@@ -26,7 +26,9 @@ export default {
     },
     //保留显示两位小数
     moneyFloat: value => {
-        return Number(value).toFixed(2).split('.')[1]
+        return Number(value)
+            .toFixed(2)
+            .split('.')[1]
     },
     //去空格
     trim: (str, type = 'ALL') => {
@@ -36,11 +38,11 @@ export default {
             RIGHT: /(\s*$)/g, //右侧空格
             BETWEEN: /^\s+|\s+$/g //两侧空格
         }
-        return str.replace(MAP[type], "")
+        return str.replace(MAP[type], '')
     },
     //判断当前时间是否在某个时间段内
     compareTime: (stime, etime) => {
-        // 转换时间格式，并转换为时间戳
+    // 转换时间格式，并转换为时间戳
         function tranDate (time) {
             return new Date(time.replace(/-/g, '/')).getTime()
         }
@@ -50,7 +52,16 @@ export default {
         let endTime = tranDate(etime)
         let thisDate = new Date()
         // 获取当前时间，格式为 2018-9-10 20:08
-        let currentTime = thisDate.getFullYear() + '-' + (thisDate.getMonth() + 1) + '-' + thisDate.getDate() + ' ' + thisDate.getHours() + ':' + thisDate.getMinutes()
+        let currentTime =
+      thisDate.getFullYear() +
+      '-' +
+      (thisDate.getMonth() + 1) +
+      '-' +
+      thisDate.getDate() +
+      ' ' +
+      thisDate.getHours() +
+      ':' +
+      thisDate.getMinutes()
         let nowTime = tranDate(currentTime)
         // 如果当前时间处于时间段内，返回true，否则返回false
         if (nowTime < startTime || nowTime > endTime) {
@@ -59,10 +70,10 @@ export default {
         return true
     },
     //用户名打码
-    nameCode: (str) => {
+    nameCode: str => {
         return str.substr(0, 1) + '*'.repeat(str.length - 1)
     },
-    toNumber: (str) => {
+    toNumber: str => {
         return Number(str)
     }
 }

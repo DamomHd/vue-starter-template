@@ -3,49 +3,92 @@
  * @version: v1.0
  * @Author: hongda_huang
  * @Date: 2019-10-29 14:47:09
- * @LastEditors  : vincent_Huanghd@126.com
- * @LastEditTime : 2019-12-25 21:09:50
+ * @LastEditors: Damom
+ * @LastEditTime: 2020-12-05 12:00:00
  * @description: 
  -->
 <template>
   <div>
-    <div class="list-item" v-for="(item,key) in info" :key="key">
+    <div class="list-item" v-for="(item, key) in info" :key="key">
       <div class="list-item-nav">
         <div class="list-item-nav-left row row-between">
           <div class="user-item row">
-            <img :src="item.userHeadImg||$avatar" alt="买家头像" class="user-item-avatar">
+            <img
+              :src="item.userHeadImg || $avatar"
+              alt="买家头像"
+              class="user-item-avatar"
+            />
             <div class="user-item-name col col-start">
-              <p class="vc-line-block text-left">{{item.buyerName}}</p>
-              <p class="list-item-nav-right text-left" v-if="showDate">{{item.createdAt|format('YYYY.MM.DD')}}</p>
+              <p class="vc-line-block text-left">{{ item.buyerName }}</p>
+              <p class="list-item-nav-right text-left" v-if="showDate">
+                {{ item.createdAt | format('YYYY.MM.DD') }}
+              </p>
             </div>
           </div>
           <div class="grade-item">
-            <i class="grade-item-img icon " :class="i< item.star?'icon-rate':'icon-rate_dis'" v-for="(i,k) in 5" :key="k"></i>
+            <i
+              class="grade-item-img icon "
+              :class="i < item.star ? 'icon-rate' : 'icon-rate_dis'"
+              v-for="(i, k) in 5"
+              :key="k"
+            ></i>
           </div>
         </div>
         <!-- <p class="list-item-nav-right" v-if="showDate">{{item.createdAt|format('YYYY-MM-DD')}}</p> -->
       </div>
-      <p class="user-content">{{item.comment||'好评'}}</p>
+      <p class="user-content">{{ item.comment || '好评' }}</p>
       <div class="show-item row row-start">
-        <img class="show-item-img" mode='aspectFill' v-if="item.img1" alt="" @click="previewImage(item,0)" :src="item.img1">
-        <img class="show-item-img" mode='aspectFill' v-if="item.img2" alt="" @click="previewImage(item,1)" :src="item.img2">
-        <img class="show-item-img" mode='aspectFill' v-if="item.img3" alt="" @click="previewImage(item,2)" :src="item.img3">
+        <img
+          class="show-item-img"
+          mode="aspectFill"
+          v-if="item.img1"
+          alt=""
+          @click="previewImage(item, 0)"
+          :src="item.img1"
+        />
+        <img
+          class="show-item-img"
+          mode="aspectFill"
+          v-if="item.img2"
+          alt=""
+          @click="previewImage(item, 1)"
+          :src="item.img2"
+        />
+        <img
+          class="show-item-img"
+          mode="aspectFill"
+          v-if="item.img3"
+          alt=""
+          @click="previewImage(item, 2)"
+          :src="item.img3"
+        />
         <!-- <image class="show-item-img" v-for="(it,ke) in lists" :src="userIcon" @click="text" :key="ke"></image> -->
       </div>
 
       <div class="service-content" v-if="item.commentsAdds.length">
-        <p class="service-title row"><i class="icon icon-service vc-line-block"></i> <span>客服回复</span> </p>
+        <p class="service-title row">
+          <i class="icon icon-service vc-line-block"></i> <span>客服回复</span>
+        </p>
         <p class="service-des">
-          {{item.commentsAdds[0].content}}
+          {{ item.commentsAdds[0].content }}
         </p>
       </div>
 
       <!-- 图片预览 -->
-      <van-image-preview v-model="show" :images="imagePreviewList" @change="changePreviewImage" :close-on-popstate='true' class-name='vc-evaluate-image-preview'>
-        <template v-slot:index>{{ imagePreviewIndex+1 }}/{{imagePreviewList.length}}</template>
+      <van-image-preview
+        v-model="show"
+        :images="imagePreviewList"
+        @change="changePreviewImage"
+        :close-on-popstate="true"
+        class-name="vc-evaluate-image-preview"
+      >
+        <template
+v-slot:index
+          >{{ imagePreviewIndex + 1 }}/{{ imagePreviewList.length }}</template
+        >
         <template v-slot:cover>
-          <p class="evaluate-name text-left">@{{evaluateInfo.name}}</p>
-          <p class="evaluate-content text-left">{{evaluateInfo.content}}</p>
+          <p class="evaluate-name text-left">@{{ evaluateInfo.name }}</p>
+          <p class="evaluate-content text-left">{{ evaluateInfo.content }}</p>
         </template>
       </van-image-preview>
     </div>
@@ -53,54 +96,54 @@
 </template>
 <script>
 export default {
-  props: {
-    showDate: {
-      type: Boolean,
-      default: true
+    props: {
+        showDate: {
+            type: Boolean,
+            default: true
+        },
+        info: {
+            type: Array,
+            default:()=>[]
+        }
     },
-    info: {
-      type: Array,
-      default: []
-    }
-  },
-  components: {},
-  data() {
-    return {
-      lists: [1, 2, 3, 4, 5],
-      star: "",
-      unStart: "",
-      userIcon: "",
-      show: false,
-      imagePreviewList: [],
-      imagePreviewIndex: 0,
-      evaluateInfo: {
-        name: "",
-        content: ""
-      }
-    };
-  },
-  methods: {
-    changePreviewImage(index) {
-      this.imagePreviewIndex = index;
+    components: {},
+    data () {
+        return {
+            lists: [1, 2, 3, 4, 5],
+            star: '',
+            unStart: '',
+            userIcon: '',
+            show: false,
+            imagePreviewList: [],
+            imagePreviewIndex: 0,
+            evaluateInfo: {
+                name: '',
+                content: ''
+            }
+        }
     },
-    previewImage(item, index) {
-      let data = [];
-      item.img1 && data.push(item.img1);
-      item.img2 && data.push(item.img2);
-      item.img3 && data.push(item.img3);
-      this.imagePreviewList = data;
-      this.evaluateInfo = {
-        name: item.buyerName,
-        content: item.comment
-      };
-      this.show = true;
-    }
-  },
-  created() {}
-};
+    methods: {
+        changePreviewImage (index) {
+            this.imagePreviewIndex = index
+        },
+        previewImage (item) {
+            let data = []
+            item.img1 && data.push(item.img1)
+            item.img2 && data.push(item.img2)
+            item.img3 && data.push(item.img3)
+            this.imagePreviewList = data
+            this.evaluateInfo = {
+                name: item.buyerName,
+                content: item.comment
+            }
+            this.show = true
+        }
+    },
+    created () {}
+}
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 .list-item {
   background-color: #fff;
   border-bottom-color: @lineColor;

@@ -8,24 +8,28 @@
 
 //日期格式化
 Date.prototype.format = function (fmt) {
-    var o = {
-        "M+": this.getMonth() + 1, // 月份
-        "d+": this.getDate(), // 日
-        "h+": this.getHours(), // 小时
-        "m+": this.getMinutes(), // 分
-        "s+": this.getSeconds(), // 秒
-        "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
-        "S": this.getMilliseconds()
-        // 毫秒
+    let o = {
+        'M+': this.getMonth() + 1, // 月份
+        'd+': this.getDate(), // 日
+        'h+': this.getHours(), // 小时
+        'm+': this.getMinutes(), // 分
+        's+': this.getSeconds(), // 秒
+        'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
+        S: this.getMilliseconds()
+    // 毫秒
     }
     if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
-            .substr(4 - RegExp.$1.length))
+        fmt = fmt.replace(
+            RegExp.$1,
+            (this.getFullYear() + '').substr(4 - RegExp.$1.length)
+        )
     }
-    for (var k in o) {
-        if (new RegExp("(" + k + ")").test(fmt)) {
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k])
-                : (("00" + o[k]).substr(("" + o[k]).length)))
+    for (let k in o) {
+        if (new RegExp('(' + k + ')').test(fmt)) {
+            fmt = fmt.replace(
+                RegExp.$1,
+                RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length)
+            )
         }
     }
     return fmt
@@ -33,31 +37,32 @@ Date.prototype.format = function (fmt) {
 
 //获取前N个月的日期
 export function getPreMonth (n) {
-    var date = new Date()
-    var year = date.getFullYear()
-    var month = date.getMonth() + 1
-    var newYear = '', newMonth = ''
-    newMonth = ((month - n < 1) ? (12 - n) : (month - n))
-    newYear = (month - n < 1) ? year - 1 : year
+    let date = new Date()
+    let year = date.getFullYear()
+    let month = date.getMonth() + 1
+    let newYear = '',
+        newMonth = ''
+    newMonth = month - n < 1 ? 12 - n : month - n
+    newYear = month - n < 1 ? year - 1 : year
     return `${newYear}年${newMonth.length == 2 ? newMonth : '0' + newMonth}月`
 }
 
-//获取日期 前几天 后几天 
+//获取日期 前几天 后几天
 export function getDay (day) {
-    var today = new Date()
-    var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day
+    let today = new Date()
+    let targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day
     today.setTime(targetday_milliseconds) //注意，这行是关键代码
-    var tYear = today.getFullYear()
-    var tMonth = today.getMonth()
-    var tDate = today.getDate()
+    let tYear = today.getFullYear()
+    let tMonth = today.getMonth()
+    let tDate = today.getDate()
     tMonth = doHandleMonth(tMonth + 1)
     tDate = doHandleMonth(tDate)
-    return tYear + "年" + tMonth + "月" + tDate + '日'
+    return tYear + '年' + tMonth + '月' + tDate + '日'
 }
 function doHandleMonth (month) {
-    var m = month
+    let m = month
     if (month.toString().length == 1) {
-        m = "0" + month
+        m = '0' + month
     }
     return m
 }
@@ -67,7 +72,8 @@ export function getWeekArea (date) {
     if (!(date instanceof Date)) {
         date = new Date()
     }
-    var day = date.getDay(), _date = date.getDate(),
+    let day = date.getDay(),
+        _date = date.getDate(),
         mondy = _date - (day == 0 ? 7 : day) + 1,
         t1 = new Date(date.getTime()),
         t2 = new Date(date.getTime())

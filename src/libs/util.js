@@ -5,7 +5,7 @@
  * @Date: 2019-07-03 16:26:29
  * @LastEditors: Damom
  * @LastEditTime: 2020-08-19 22:30:17
- * @description: 
+ * @description:
  */
 import cookies from './util.cookies'
 import { Toast, Dialog } from 'vant'
@@ -25,10 +25,10 @@ util.title = function (titleText) {
     // window.document.title = `${processTitle}${titleText ? ` | ${titleText}` : ''}`
     //设置页面title  SPA设置无效问题
     if (isIos) {
-        //利用iframe的onload事件刷新页面
+    //利用iframe的onload事件刷新页面
         setTimeout(() => {
             window.document.title = titleText
-            var iframe = document.createElement('iframe')
+            let iframe = document.createElement('iframe')
             iframe.style.visibility = 'hidden'
             iframe.style.width = '1px'
             iframe.style.height = '1px'
@@ -39,8 +39,7 @@ util.title = function (titleText) {
             }
             document.body.appendChild(iframe)
         }, 0)
-    }
-    else {
+    } else {
         window.document.title = titleText
     }
 }
@@ -56,15 +55,16 @@ util.loginConfirm = function () {
         messageAlign: 'center',
         className: 'vc-vant-confirm-modal',
         confirmButtonText: '前往登录'
-    }).then(() => {
-        //前往登录
-        window.location.href = '/page/login?fromUrl=' + encodeURIComponent(location.href)
-        // on confirm
-    }).catch(() => {
-        // on cancel
     })
+        .then(() => {
+            //前往登录
+            window.location.href =
+        '/page/login?fromUrl=' + encodeURIComponent(location.href)
+            // on confirm
+        })
+        .catch(() => {
+            // on cancel
+        })
 }
-
-
 
 export default util

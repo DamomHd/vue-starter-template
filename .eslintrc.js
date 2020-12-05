@@ -4,7 +4,7 @@
  * @Author: hongda_huang
  * @Date: 2020-04-24 09:53:10
  * @LastEditors: Damom
- * @LastEditTime: 2020-08-30 11:51:48
+ * @LastEditTime: 2020-12-05 11:54:32
  * @description:
  */
 module.exports = {
@@ -28,6 +28,9 @@ module.exports = {
     },
 
     rules: {
+        "no-var": 2,
+        "no-invalid-regexp": "off",//关闭正则校验
+        "no-mixed-spaces-and-tabs": 2, // 禁止空格和 tab 的混合缩进
         /**
          * 禁止将 async 函数做为 new Promise 的回调函数
          * @category Possible Errors
@@ -44,6 +47,7 @@ module.exports = {
                 allowEmptyCatch: true
             }
         ],
+        'indent': ['error', 4],//缩进
         'no-console':process.env.NODE_ENV === 'production'?'off':'off',
         'no-debugger':process.env.NODE_ENV === 'production'?'error':'off',
         'no-multiple-empty-lines':0,
@@ -65,7 +69,6 @@ module.exports = {
             }
         ],
     },
-
     parserOptions: {
         sourceType: "module",
         parser: "babel-eslint", //解决vue import异步导入报错问题

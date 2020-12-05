@@ -1,1 +1,1 @@
-tree>contents.txt
+tree -I "node_modules">contents.txt

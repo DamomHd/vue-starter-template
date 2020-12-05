@@ -3,23 +3,50 @@
  * @version: v1.0
  * @Author: hongda_huang
  * @Date: 2019-10-29 17:20:46
- * @LastEditors: vincent_Huanghd@126.com
- * @LastEditTime: 2019-12-17 14:34:33
+ * @LastEditors: Damom
+ * @LastEditTime: 2020-12-05 11:39:50
  * @description: 
  -->
 <template>
   <div>
-
     <div class="i-input-number">
       <!-- :class="['i-input-number-size-'+size]" -->
-      <div class="i-input-number-minus" :class="[value <= min ? 'i-input-number-disabled' : '']" :data-disabled="value <= min" @click="handleMinus">
-        <div class="i-input-number-minus-icon" :class="[value <= min ? 'i-input-number-minus-icon-disabled' : '']"></div>
+      <div
+        class="i-input-number-minus"
+        :class="[value <= min ? 'i-input-number-disabled' : '']"
+        :data-disabled="value <= min"
+        @click="handleMinus"
+      >
+        <div
+          class="i-input-number-minus-icon"
+          :class="[value <= min ? 'i-input-number-minus-icon-disabled' : '']"
+        ></div>
       </div>
       <!--  @change="handleChange" -->
-      <input class="i-input-number-text" :class="[min >= max ? 'i-input-number-disabled' : '']" type="number" :value="value" :disabled="min >= max" @input="handleBlur" />
-      <div class="i-input-number-plus" :class="[value >= max ? 'i-input-number-disabled' : '']" :data-disabled="value >= max" @click="handlePlus">
-        <div class="i-input-number-plus-icon" :class="[value >= max ? 'i-input-number-plus-icon-disabled' : '']">
-          <div class="i-input-number-plus-icon-two" :class="[value >= max ? 'i-input-number-plus-icon-two-disabled' : '']"></div>
+      <input
+        class="i-input-number-text"
+        :class="[min >= max ? 'i-input-number-disabled' : '']"
+        type="number"
+        :value="value"
+        :disabled="min >= max"
+        @input="handleBlur"
+      />
+      <div
+        class="i-input-number-plus"
+        :class="[value >= max ? 'i-input-number-disabled' : '']"
+        :data-disabled="value >= max"
+        @click="handlePlus"
+      >
+        <div
+          class="i-input-number-plus-icon"
+          :class="[value >= max ? 'i-input-number-plus-icon-disabled' : '']"
+        >
+          <div
+            class="i-input-number-plus-icon-two"
+            :class="[
+              value >= max ? 'i-input-number-plus-icon-two-disabled' : '',
+            ]"
+          ></div>
         </div>
       </div>
     </div>
@@ -28,126 +55,126 @@
 
 <script>
 export default {
-  components: {
+    components: {
     // card
-  },
-  props: {
+    },
+    props: {
     // small || default || large
-    size: {
-      type: String,
-      default: "small"
+        size: {
+            type: String,
+            default: 'small'
+        },
+        value: {
+            type: Number,
+            default: 1
+        },
+        min: {
+            type: Number,
+            default: 1
+        },
+        max: {
+            type: Number,
+            default: 100
+        },
+        step: {
+            type: Number,
+            default: 1
+        }
     },
-    value: {
-      type: Number,
-      default: 1
+    data () {
+        return {
+            any: ''
+        }
     },
-    min: {
-      type: Number,
-      default: 1
+    computed: {
+        isDisabled () {
+            let { value, min } = this
+            return value <= min
+        }
     },
-    max: {
-      type: Number,
-      default: 100
-    },
-    step: {
-      type: Number,
-      default: 1
-    }
-  },
-  data() {
-    return {
-      any: ""
-    };
-  },
-  computed: {
-    isDisabled() {
-      let { value, min } = this;
-      return value <= min;
-    }
-  },
-  methods: {
-    addNum(num1, num2) {
-      let sq1, sq2, m;
-      try {
-        sq1 = num1.toString().split(".")[1].length;
-      } catch (e) {
-        sq1 = 0;
-      }
-      try {
-        sq2 = num2.toString().split(".")[1].length;
-      } catch (e) {
-        sq2 = 0;
-      }
-      m = Math.pow(10, Math.max(sq1, sq2));
-      return (Math.round(num1 * m) + Math.round(num2 * m)) / m;
-    },
-    handleChange(e) {
-      let value = Number(e.target.value);
-      setTimeout(() => {
-        this.handleEmit(value);
-      }, 0);
-    },
-    handleChangeStep(e, type) {
-      // console.log(this.value+'---'+this.max+'---'+this.min);
-      // const { dataset = {} } = e.currentTarget;
-      // const { disabled } = dataset;
-      const { step } = this;
-      let { value } = this;
+    methods: {
+        addNum (num1, num2) {
+            let sq1, sq2, m
+            try {
+                sq1 = num1.toString().split('.')[1].length
+            } catch (e) {
+                sq1 = 0
+            }
+            try {
+                sq2 = num2.toString().split('.')[1].length
+            } catch (e) {
+                sq2 = 0
+            }
+            m = Math.pow(10, Math.max(sq1, sq2))
+            return (Math.round(num1 * m) + Math.round(num2 * m)) / m
+        },
+        handleChange (e) {
+            let value = Number(e.target.value)
+            setTimeout(() => {
+                this.handleEmit(value)
+            }, 0)
+        },
+        handleChangeStep (e, type) {
+            // console.log(this.value+'---'+this.max+'---'+this.min);
+            // const { dataset = {} } = e.currentTarget;
+            // const { disabled } = dataset;
+            const { step } = this
+            let { value } = this
 
-      // if (disabled) return null;
-      // console.log(1)
-      if (type === "minus") {
-        value = this.addNum(value, -step);
-      } else if (type === "plus") {
-        value = this.addNum(value, step);
-      }
-      if (value < this.min || value > this.max) return null;
+            // if (disabled) return null;
+            // console.log(1)
+            if (type === 'minus') {
+                value = this.addNum(value, -step)
+            } else if (type === 'plus') {
+                value = this.addNum(value, step)
+            }
+            if (value < this.min || value > this.max) return null
 
-      this.handleEmit(value, type);
+            this.handleEmit(value, type)
+        },
+
+        handleMinus (e) {
+            this.handleChangeStep(e, 'minus')
+        },
+
+        handlePlus (e) {
+            this.handleChangeStep(e, 'plus')
+        },
+
+        handleBlur (e) {
+            let value = e.target.value
+            console.log(value)
+            const { min, max } = this
+
+            if (!value) {
+                setTimeout(() => {
+                    this.handleEmit(value)
+                }, 16)
+                return
+            }
+
+            // value = +value;
+            if (value > max) {
+                value = max
+            } else if (value < min) {
+                value = min
+            }
+
+            this.handleEmit(value)
+        },
+        handleEmit (value, type) {
+            const data = {
+                value: value
+            }
+            if (type) data.type = type
+            // this.value = value;
+            this.$emit('changeNumber', data) //改变value
+        }
     },
-
-    handleMinus(e) {
-      this.handleChangeStep(e, "minus");
-    },
-
-    handlePlus(e) {
-      this.handleChangeStep(e, "plus");
-    },
-
-    handleBlur(e) {
-      let value = e.target.value;
-      console.log(value);
-      const { min, max } = this;
-
-      if (!value) {
-        setTimeout(() => {
-          this.handleEmit(value);
-        }, 16);
-        return;
-      }
-
-      // value = +value;
-      if (value > max) {
-        value = max;
-      } else if (value < min) {
-        value = min;
-      }
-
-      this.handleEmit(value);
-    },
-    handleEmit(value, type) {
-      const data = {
-        value: value
-      };
-      if (type) data.type = type;
-      // this.value = value;
-      this.$emit("changeNumber", data); //改变value
-    }
-  },
-  created() {}
-};
+    created () {}
+}
 </script>
-<style scoped lang='less'>
+<style scoped lang="less">
 .i-input-number {
   color: #495060;
   display: flex;

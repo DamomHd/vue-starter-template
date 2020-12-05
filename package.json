@@ -6,7 +6,10 @@
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
-        "dev": "vue-cli-service serve"
+        "dev": "vue-cli-service serve",
+        "mock": "gulp mock",
+        "format": "eslint --fix \"src/**/*.js\" \"src/**/*.vue\"",
+        "eslint": "vue-cli-service lint"
     },
     "dependencies": {
         "amfe-flexible": "^2.2.1",
@@ -24,6 +27,7 @@
         "file-loader": "^4.0.0",
         "font-awesome": "^4.7.0",
         "gulp-nodemon": "^2.5.0",
+        "husky": "^4.3.0",
         "iphone-inline-video": "^2.2.2",
         "js-cookie": "^2.2.0",
         "json-server": "^0.16.1",
@@ -72,6 +76,12 @@
     },
     "gitHooks": {
         "pre-commit": "lint-staged"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
     },
     "lint-staged": {
         "*.js": [

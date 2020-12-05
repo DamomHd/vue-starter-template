@@ -4,10 +4,10 @@
  * @Author: hongda_huang
  * @Date: 2019-07-02 11:46:02
  * @LastEditors: Damom
- * @LastEditTime: 2020-08-27 23:42:36
+ * @LastEditTime: 2020-12-05 11:48:47
  * @description:
  */
-var fs = require("fs")
+let fs = require("fs")
 // 拼接路径
 // const resolve = dir => require("path").join(__dirname, dir)
 
@@ -15,9 +15,9 @@ const path = require("path")
 
 
 function resolve (dir) {
-  return path.join(__dirname, dir)
+    return path.join(__dirname, dir)
 }
-var spriteFilePath = path.resolve("./src/assets/images/sprites")
+let spriteFilePath = path.resolve("./src/assets/images/sprites")
 // JS压缩
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 // 用于开启gzip压缩的插件
@@ -31,11 +31,11 @@ const templateFunction = function (data) {
     const prefix = data.spritesheet.image.replace(/(.*\/)*([^.]+).*/gi, "$2")
     // 雪碧图原始宽高 px
     const { width, height } = data.spritesheet
-    var shared = ".icon.icon-N { background-image: url(I) ;}"
+    let shared = ".icon.icon-N { background-image: url(I) ;}"
         .replace("I", data.sprites[0].image)
         .replace("N", prefix)
 
-    var perSprite = data.sprites
+    let perSprite = data.sprites
         .map(function (sprite) {
             return ".icon.icon-N { width: Wrem ; height: Hrem; background-position: Xrem Yrem;background-repeat: no-repeat;background-size: Erem Frem; }"
                 .replace("N", sprite.name)
@@ -53,7 +53,7 @@ const templateFunction = function (data) {
 // 雪碧图plugin
 const spritePlugins = []
 // 雪碧图来源文件夹
-var spriteDirs = fs.readdirSync(spriteFilePath)
+let spriteDirs = fs.readdirSync(spriteFilePath)
 spriteDirs.forEach(filename => {
     spritePlugins.push(
         new SpritesmithPlugin({
@@ -89,7 +89,7 @@ spriteDirs.forEach(filename => {
             apiOptions: {
                 generateSpriteName: function () {
                     // console.log(arguments)
-                    var fileName = arguments[0]
+                    let fileName = arguments[0]
                         .match(/[^\\]+$/)[0]
                         .replace(/\.[a-zA-Z]+/, "")
                     // console.log(fileName)
@@ -240,8 +240,7 @@ module.exports = {
             )
             // 生产环境
             .when(IS_PRODUCTION, config => {
-
-                 // 配置生成的index.html生成的标签自带引号
+                // 配置生成的index.html生成的标签自带引号
                 // 编译之后的index.html没有引号是缺省设置，是由HtmlWebpackPlugin中的minify设置的，这是一个标准设置，它的作用就是去除所有html中的注释、回车换行、引号等等；
                 config.plugin("html").tap(args => {
                     args[0].minify = false
