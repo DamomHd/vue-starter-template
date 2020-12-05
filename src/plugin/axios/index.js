@@ -4,7 +4,7 @@
  * @Author: hongda_huang
  * @Date: 2019-07-15 10:40:11
  * @LastEditors: Damom
- * @LastEditTime: 2020-12-05 14:51:33
+ * @LastEditTime: 2020-12-05 17:15:15
  * @description:
  */
 import store from '@/store'
@@ -23,7 +23,7 @@ function errorCreate (msg) {
 // 记录和显示错误
 function errorLog (error) {
     // 添加到日志
-    store.dispatch('Vincent/log/push', {
+    store.dispatch('log/push', {
         message: '数据请求异常',
         type: 'danger',
         meta: {
@@ -64,7 +64,21 @@ const service = axios.create({
     responseEncoding: 'utf8', // 响应数据编码
     timeout: 30000 // 请求超时时间
 })
+// 用于防止发送重复请求
+const paddingList = [] //请求中的接口列表
+const CancelToken = axios.CancelToken //取消请求
 
+const fastClickMsg = '数据请求中，请稍后'
+let removePaddingFn = (config, c) =>{
+    let url = config.url 
+    let index = paddingList.findIndex(i => i === url)
+    if(index > -1){
+        c ? c(fastClickMsg) : paddingList.splice(index, 1)
+    }
+    else{
+        c && paddingList.push(url)
+    }
+}
 /**
  * @description: 请求拦截器
  * @param {type}
@@ -78,6 +92,18 @@ service.interceptors.request.use(
      * @param {loading} 当前请求是否需要loading加载 | 默认 false
      * @param {isFile} 当前请求是否为文件上传 | 默认 false
      */
+        // 发送请求前 保存
+        config.cancelToken = new CancelToken(c => {
+            if(navigator.onLine){
+                removePaddingFn(config, c)
+            }
+            else{
+                c('当前网络状态不佳，请检查网络')
+                return 
+            }
+            
+        })
+
         let { loading } = config
         if (loading) {
             Toast.loading({
@@ -98,9 +124,6 @@ service.interceptors.request.use(
             config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
             config.data = qs.stringify(config.data)
         }
-        /**
-     * @description get请求 拼接url参数
-     */
         if (config.method === 'get' && config.data) {
             config.url += `?${config.data}`
         }
@@ -108,8 +131,6 @@ service.interceptors.request.use(
         return config
     },
     error => {
-    // 发送失败
-        console.log(error)
         Promise.reject(error)
     }
 )
@@ -121,7 +142,10 @@ service.interceptors.request.use(
  */
 service.interceptors.response.use(
     response => {
+        //请求完移除请求中
+        removePaddingFn(response.config)
         Toast.clear() //清除loading
+        
         // dataAxios 是 axios 返回数据中的 data
         const dataAxios = response.data
         // 这个状态码是和后端约定的
