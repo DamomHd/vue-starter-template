@@ -3,8 +3,8 @@
  * @version: v1.0
  * @Author: hongda_huang
  * @Date: 2019-07-02 11:46:02
- * @LastEditors: vincent_Huanghd@126.com
- * @LastEditTime: 2020-07-14 15:04:20
+ * @LastEditors: Damom
+ * @LastEditTime: 2020-12-05 16:15:08
  * @description: 
  -->
 # test
@@ -78,9 +78,11 @@ yarn add terser-webpack-plugin -D
 # mock 模拟数据服务接入
 
 ## json-server 搭配 mock.js
-
 npm install json-server mockjs --save
 
 ## mock改动自动热更新
-
 npm install gulp gulp-nodemon browser-sync --save
+
+
+## 使用Angular提交规范 构建提交校验规范
+使用git cz使用

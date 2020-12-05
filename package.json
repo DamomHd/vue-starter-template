@@ -12,6 +12,7 @@
         "eslint": "vue-cli-service lint"
     },
     "dependencies": {
+        "@commitlint/config-angular": "^11.0.0",
         "amfe-flexible": "^2.2.1",
         "axios": "^0.19.2",
         "browser-sync": "^2.26.12",
@@ -48,6 +49,8 @@
         "weixin-js-sdk": "^1.4.0-test"
     },
     "devDependencies": {
+        "@commitlint/cli": "^11.0.0",
+        "@commitlint/config-conventional": "^11.0.0",
         "@nutui/babel-plugin-separate-import": "^1.2.0",
         "@vue/cli-plugin-babel": "^4.4.6",
         "@vue/cli-plugin-eslint": "^4.4.6",
@@ -74,27 +77,9 @@
         "vue-cli-plugin-webpack-bundle-analyzer": "^2.0.0",
         "vue-template-compiler": "^2.6.10"
     },
-    "gitHooks": {
-        "pre-commit": "lint-staged"
-    },
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged",
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+            "commit-msg": "commitlint -e $GIT_PARAMS"
         }
-    },
-    "lint-staged": {
-        "*.js": [
-            "vue-cli-service lint",
-            "git add"
-        ],
-        "*.vue": [
-            "vue-cli-service lint",
-            "git add"
-        ],
-        "*.{js,jsx,vue}": [
-            "vue-cli-service lint",
-            "git add"
-        ]
     }
 }
