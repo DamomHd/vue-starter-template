@@ -1,12 +1,11 @@
 <!--
- * @Descripttion: Vincent
- * @version: v1.0
- * @Author: hongda_huang
- * @Date: 2020-07-15 10:35:05
+ * @Author: Damom
+ * @Date: 2020-08-27 23:54:47
  * @LastEditors: Damom
- * @LastEditTime: 2020-12-05 15:14:05
- * @description:
+ * @LastEditTime: 2020-12-16 21:06:31
+ * @Description: file content
 -->
+
 <template>
   <div id="app">
     <router-view />
@@ -29,14 +28,17 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  box-sizing: border-box;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    box-sizing: border-box;
+    text-align: center;
+    color: #2c3e50;
+    box-sizing: border-box;
+    font-size: 24px;
+    height: 100%;
 }
-img {
-  object-fit: contain;
-}
+
 </style>

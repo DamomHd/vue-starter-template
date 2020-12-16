@@ -4,51 +4,50 @@
  * @Author: hongda_huang
  * @Date: 2019-07-02 11:46:02
  * @LastEditors: Damom
- * @LastEditTime: 2020-12-05 11:48:47
+ * @LastEditTime: 2020-12-05 19:27:16
  * @description:
  */
-let fs = require("fs")
+let fs = require('fs')
 // 拼接路径
 // const resolve = dir => require("path").join(__dirname, dir)
 
-const path = require("path")
-
+const path = require('path')
 
 function resolve (dir) {
     return path.join(__dirname, dir)
 }
-let spriteFilePath = path.resolve("./src/assets/images/sprites")
+let spriteFilePath = path.resolve('./src/assets/images/sprites')
 // JS压缩
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 // 用于开启gzip压缩的插件
-const CompressionPlugin = require("compression-webpack-plugin")
+const CompressionPlugin = require('compression-webpack-plugin')
 // 引入雪碧图生成
-const SpritesmithPlugin = require("webpack-spritesmith")
+const SpritesmithPlugin = require('webpack-spritesmith')
 // 文件输出 npm install copy-webpack-plugin --save-dev
 // const CopyPlugin = require('copy-webpack-plugin');
 // Cli3 引入编译分析  添加包 vue add webpack-bundle-analyzer  执行 npm run build --report
 const templateFunction = function (data) {
-    const prefix = data.spritesheet.image.replace(/(.*\/)*([^.]+).*/gi, "$2")
+    const prefix = data.spritesheet.image.replace(/(.*\/)*([^.]+).*/gi, '$2')
     // 雪碧图原始宽高 px
     const { width, height } = data.spritesheet
-    let shared = ".icon.icon-N { background-image: url(I) ;}"
-        .replace("I", data.sprites[0].image)
-        .replace("N", prefix)
+    let shared = '.icon.icon-N { background-image: url(I) ;}'
+        .replace('I', data.sprites[0].image)
+        .replace('N', prefix)
 
     let perSprite = data.sprites
         .map(function (sprite) {
-            return ".icon.icon-N { width: Wrem ; height: Hrem; background-position: Xrem Yrem;background-repeat: no-repeat;background-size: Erem Frem; }"
-                .replace("N", sprite.name)
-                .replace("W", (sprite.width + 4) / 75)
-                .replace("H", (sprite.height + 4) / 75)
-                .replace("X", (sprite.offset_x + 2) / 75)
-                .replace("Y", (sprite.offset_y + 2) / 75)
-                .replace("E", width / 75)
-                .replace("F", height / 75)
+            return '.icon.icon-N { width: Wrem ; height: Hrem; background-position: Xrem Yrem;background-repeat: no-repeat;background-size: Erem Frem; }'
+                .replace('N', sprite.name)
+                .replace('W', (sprite.width + 4) / 75)
+                .replace('H', (sprite.height + 4) / 75)
+                .replace('X', (sprite.offset_x + 2) / 75)
+                .replace('Y', (sprite.offset_y + 2) / 75)
+                .replace('E', width / 75)
+                .replace('F', height / 75)
         })
-        .join("\n")
+        .join('\n')
 
-    return shared + "\n" + perSprite
+    return shared + '\n' + perSprite
 }
 // 雪碧图plugin
 const spritePlugins = []
@@ -66,7 +65,7 @@ spriteDirs.forEach(filename => {
                 cwd: path.resolve(__dirname, `./src/assets/images/sprites/${filename}`),
                 // 匹配 png 文件，可以用glob语法，比如 '*.(png|jpg)' 这样；
                 // 但png和jpg拼一起，有时候图片无法正常显示
-                glob: "*.png"
+                glob: '*.png'
             },
             // 输出雪碧图文件及样式文件
             target: {
@@ -76,12 +75,9 @@ spriteDirs.forEach(filename => {
                 // 可以是字符串、或者数组
                 css: [
                     [
-                        path.resolve(
-                            __dirname,
-                            `./src/assets/style/sprite/${filename}.css`
-                        ),
+                        path.resolve(__dirname, `./src/assets/style/sprite/${filename}.css`),
                         {
-                            format: "function_based_template"
+                            format: 'function_based_template'
                         }
                     ]
                 ]
@@ -89,9 +85,7 @@ spriteDirs.forEach(filename => {
             apiOptions: {
                 generateSpriteName: function () {
                     // console.log(arguments)
-                    let fileName = arguments[0]
-                        .match(/[^\\]+$/)[0]
-                        .replace(/\.[a-zA-Z]+/, "")
+                    let fileName = arguments[0].match(/[^\\]+$/)[0].replace(/\.[a-zA-Z]+/, '')
                     // console.log(fileName)
                     return fileName
                 },
@@ -102,20 +96,20 @@ spriteDirs.forEach(filename => {
                 function_based_template: templateFunction
             },
             spritesmithOptions: {
-                algorithm: "binary-tree",
+                algorithm: 'binary-tree',
                 padding: 8
             }
         })
     )
 })
-const IS_PRODUCTION = process.env.NODE_ENV === 'production' 
+const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 // 增加环境变量
-process.env.VUE_APP_VERSION = require("./package.json").version
-process.env.VUE_APP_BUILD_TIME = require("dayjs")().format("YYYY-M-D HH:mm:ss")
+process.env.VUE_APP_VERSION = require('./package.json').version
+process.env.VUE_APP_BUILD_TIME = require('dayjs')().format('YYYY-M-D HH:mm:ss')
 
 // 基础路径 注意发布之前要先修改这里
 // 开发绝对路径  线上相对路径
-const publicPath = IS_PRODUCTION ? "/" : "/"
+const publicPath = IS_PRODUCTION ? '/' : '/'
 const cdnSource = [
     'https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js',
     'https://cdn.bootcdn.net/ajax/libs/vue-router/3.0.6/vue-router.min.js',
@@ -129,10 +123,10 @@ module.exports = {
     productionSourceMap: false,
     devServer: {
         publicPath, // 和 publicPath 保持一致
-        open: "Google Chrome",
+        open: 'Google Chrome',
         hot: true,
         // host: "localhost",
-        host: "0.0.0.0",
+        host: '0.0.0.0',
 
         overlay: {
             warnings: true, // 警告不影响server/build
@@ -155,8 +149,8 @@ module.exports = {
         // productionSourceMap: false,
         // // 配置代理
         // proxy: process.env.VUE_APP_API
-        proxy: {  
-            '/api/': {  
+        proxy: {
+            '/api/': {
                 target: 'http://localhost:3002',
                 changeOrigin: true,
                 pathRewrite: {
@@ -171,12 +165,12 @@ module.exports = {
         const Plugins = []
         if (IS_PRODUCTION) {
             // 减少vendors体积过大问题
-            Object.assign(config,{
-                externals:{
-                    vue:'Vue',
-                    axios:'axios',
-                    'vue-router':'VueRouter',
-                    vuex:'Vuex'
+            Object.assign(config, {
+                externals: {
+                    vue: 'Vue',
+                    axios: 'axios',
+                    'vue-router': 'VueRouter',
+                    vuex: 'Vuex'
                 }
             })
             Plugins.push(
@@ -188,9 +182,9 @@ module.exports = {
             )
         }
         config.plugins = [...config.plugins, ...Plugins, ...spritePlugins]
-        
     },
     css: {
+        sourceMap: false,
         loaderOptions: {
             // 设置 scss 公用变量文件
             // sass: {
@@ -202,10 +196,10 @@ module.exports = {
             // 覆盖vant主题色
             less: {
                 modifyVars: {
-                    red: "#ea4452",
-                    blue: "#007AFF",
-                    orange: "#f08d49",
-                    "text-color": "#111"
+                    red: '#ea4452',
+                    blue: '#007AFF',
+                    orange: '#f08d49',
+                    'text-color': '#111'
                 }
             }
         }
@@ -214,8 +208,8 @@ module.exports = {
     chainWebpack: config => {
         //设置路径别名
         config.resolve.alias
-            .set('common',resolve('src/plugin/Damom/common'))
-            .set('Damom',resolve('src/plugin/Damom'))
+            .set('common', resolve('src/plugin/Damom/common'))
+            .set('Damom', resolve('src/plugin/Damom'))
             .end()
         /**
          * 删除懒加载模块的 prefetch preload，降低带宽压力
@@ -223,47 +217,74 @@ module.exports = {
          * https://cli.vuejs.org/zh/guide/html-and-static-assets.html#preload
          * 而且预渲染时生成的 prefetch 标签是 modern 版本的，低版本浏览器是不需要的
          */
-        config.plugins.delete("prefetch").delete("preload")
+        config.plugins.delete('prefetch').delete('preload')
         // 解决 cli3 热更新失效 https://github.com/vuejs/vue-cli/issues/1559
         config.resolve.symlinks(true)
         config.module
-            .rule("images")
-            .use("url-loader")
-            .loader("url-loader")
+            .rule('images')
+            .use('url-loader')
+            .loader('url-loader')
             .tap(options => Object.assign(options, { limit: 10240 }))
+        //提取公共模块
+        config.optimization.splitChunks({
+            chunks: 'all', //async 提取异步加载模块 initial提取同步、异步到分别两个文件  all同步异步都提取到一个文件
+            cacheGroups: {
+                node_vendors: {
+                    name: 'chunk-vendors',
+                    chunks: 'initial', // 只打包初始时依赖的第三方
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: 10
+                },
+                commons: {
+                    name: 'chunk-commons',
+                    test: resolve('src/components'),
+                    minChunks: 2, //  被至少用三次以上打包分离
+                    priority: 5, // 优先级 越大优先采用
+                    reuseExistingChunk: true // 表示是否使用已有的 chunk，如果为 true 则表示如果当前的 chunk 包含的模块已经被抽取出去了，那么将不会重新生成新的。
+                },
+                vant: {
+                    name: 'chunk-vant', // vant单独打包
+                    priority: 20, // 优先级必须最高
+                    test: /[\\/]node_modules[\\/]_?vant(.*)/
+                },
+                api: {
+                    name: 'chunk-api', //提取api
+                    test: resolve('src/api'),
+                    priority: 0
+                }
+            }
+        })
         config
             // 开发环境
             .when(
                 !IS_PRODUCTION,
                 // sourcemap不包含列信息
-                config => config.devtool("cheap-source-map")
+                config => config.devtool('cheap-source-map')
             )
             // 生产环境
             .when(IS_PRODUCTION, config => {
                 // 配置生成的index.html生成的标签自带引号
                 // 编译之后的index.html没有引号是缺省设置，是由HtmlWebpackPlugin中的minify设置的，这是一个标准设置，它的作用就是去除所有html中的注释、回车换行、引号等等；
-                config.plugin("html").tap(args => {
+                config.plugin('html').tap(args => {
                     args[0].minify = false
                     args[0].xhtml = true // 是否渲染link为自闭合的标签，true则为自闭合标签
                     args[0].cdn = {
-                        js:cdnSource
+                        js: cdnSource
                     }
                     return args
                 })
-                config.optimization.minimizer("terser").tap(args => {
+                config.optimization.minimizer('terser').tap(args => {
                     // 去除生产环境console
                     args[0].terserOptions.compress.drop_console = false
                     return args
                 })
             })
-
-       
     },
     // 配置公共样式 全局可访问 https://www.npmjs.com/package/style-resources-loader
     pluginOptions: {
-        "style-resources-loader": {
-            preProcessor: "less",
-            patterns: [path.resolve(__dirname, "./src/assets/style/public.less")]
+        'style-resources-loader': {
+            preProcessor: 'less',
+            patterns: [path.resolve(__dirname, './src/assets/style/public.less')]
         },
         // 打包分析配置
         webpackBundleAnalyzer: {

@@ -4,7 +4,7 @@
  * @Author: hongda_huang
  * @Date: 2020-04-24 09:53:10
  * @LastEditors: Damom
- * @LastEditTime: 2020-12-05 11:54:32
+ * @LastEditTime: 2020-12-16 21:20:58
  * @description:
  */
 module.exports = {
@@ -17,10 +17,9 @@ module.exports = {
     },
 
 
-    plugins: ["vue"], //prettier
-    extends: [
-        "eslint:recommended",
-        "plugin:vue/essential"
+    extends: ['plugin:vue/essential', 'eslint:recommended'],
+    plugins: [
+        'vue'
     ],
     globals: {
         "Atomics": "readonly",
@@ -28,6 +27,7 @@ module.exports = {
     },
 
     rules: {
+        "prettier/prettier": "error",
         "no-var": 2,
         "no-invalid-regexp": "off",//关闭正则校验
         "no-mixed-spaces-and-tabs": 2, // 禁止空格和 tab 的混合缩进

@@ -2,10 +2,11 @@
  * @Author: Damom
  * @Date: 2020-08-20 22:34:48
  * @LastEditors: Damom
- * @LastEditTime: 2020-08-27 23:45:36
+ * @LastEditTime: 2020-12-05 17:16:04
  * @Description: file content
  */
 let Mock = require('mockjs')
+
 module.exports = {
     getList: Mock.mock({
         errorCode: 200,
